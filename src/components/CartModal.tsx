@@ -1,6 +1,9 @@
 'use client';
 
+import Image from 'next/image';
 import { useCart } from '@/contexts/CartContext';
+import { X, Minus, Plus, MessageCircle } from 'lucide-react';
+import { sendCartToWhatsApp } from '@/utils/whatsapp';
 
 export default function CartModal() {
   const { items, removeItem, updateQuantity, totalPrice, isCartOpen, toggleCart } = useCart();
@@ -14,6 +17,12 @@ export default function CartModal() {
     });
   };
 
+  const handleCheckout = () => {
+    sendCartToWhatsApp(items);
+    // Opcional: limpar o carrinho após enviar
+    // clearCart();
+  };
+
   return (
     <>
       <div
@@ -24,10 +33,10 @@ export default function CartModal() {
         <div className="flex justify-between items-center p-5 border-b border-gray-200">
           <h2 className="m-0 text-xl text-gray-800">Carrinho de Compras</h2>
           <button
-            className="bg-transparent border-none text-[32px] cursor-pointer text-gray-600 leading-none p-0 w-8 h-8 hover:text-gray-800"
+            className="bg-transparent border-none cursor-pointer text-gray-600 leading-none p-0 w-8 h-8 hover:text-gray-800 flex items-center justify-center"
             onClick={toggleCart}
           >
-            ×
+            <X className="w-6 h-6" />
           </button>
         </div>
 
@@ -52,16 +61,16 @@ export default function CartModal() {
                   <div className="flex items-center gap-2">
                     <button
                       onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                      className="bg-gray-100 border-none w-7 h-7 rounded cursor-pointer text-base flex items-center justify-center hover:bg-gray-200 transition-colors"
+                      className="bg-gray-100 border-none w-7 h-7 rounded cursor-pointer flex items-center justify-center hover:bg-gray-200 transition-colors"
                     >
-                      −
+                      <Minus className="w-4 h-4" />
                     </button>
                     <span className="min-w-[30px] text-center font-medium">{item.quantity}</span>
                     <button
                       onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                      className="bg-gray-100 border-none w-7 h-7 rounded cursor-pointer text-base flex items-center justify-center hover:bg-gray-200 transition-colors"
+                      className="bg-gray-100 border-none w-7 h-7 rounded cursor-pointer flex items-center justify-center hover:bg-gray-200 transition-colors"
                     >
-                      +
+                      <Plus className="w-4 h-4" />
                     </button>
                   </div>
                 </div>
@@ -71,7 +80,7 @@ export default function CartModal() {
                     className="bg-transparent border-none cursor-pointer text-lg p-1 opacity-60 hover:opacity-100 transition-opacity"
                     onClick={() => removeItem(item.id)}
                   >
-                    🗑️
+                    <Image src="/lixo.svg" alt="Remover" width={20} height={20} />
                   </button>
                 </div>
               </div>
@@ -85,8 +94,12 @@ export default function CartModal() {
               <span>Total:</span>
               <strong className="text-primary text-2xl">{formatPrice(totalPrice)}</strong>
             </div>
-            <button className="w-full py-4 bg-primary text-white border-none rounded font-bold text-base cursor-pointer mb-2 hover:bg-primary-dark transition-colors">
-              Finalizar Compra
+            <button
+              onClick={handleCheckout}
+              className="w-full py-4 bg-green-600 text-white border-none rounded font-bold text-base cursor-pointer mb-2 hover:bg-green-700 transition-colors flex items-center justify-center gap-2"
+            >
+              <MessageCircle className="w-5 h-5" />
+              Finalizar Compra via WhatsApp
             </button>
             <button
               className="w-full py-3 bg-white text-primary border-2 border-primary rounded font-bold text-sm cursor-pointer hover:bg-primary hover:text-white transition-all"

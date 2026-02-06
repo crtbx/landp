@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  .image-container {
+    object-fit: cover;
+    object-position: center;
+  }
+}

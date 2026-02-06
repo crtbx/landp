@@ -4,6 +4,7 @@ import { MouseEvent } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useCart } from '@/contexts/CartContext';
+import { Star } from 'lucide-react';
 
 interface ProductCardProps {
   id: string;
@@ -47,7 +48,9 @@ export default function ProductCard({
   };
 
   const renderStars = (count: number) => {
-    return '⭐'.repeat(count);
+    return Array.from({ length: count }).map((_, i) => (
+      <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+    ));
   };
 
   return (
@@ -60,15 +63,15 @@ export default function ProductCard({
           src={image}
           alt={name}
           fill
-          className="object-cover"
+          className="image-container"
           sizes="(max-width: 768px) 200px, (max-width: 1024px) 240px, 280px"
         />
       </div>
       <h3 className="text-[15px] md:text-sm text-gray-800 mb-2.5 leading-snug min-h-[42px] md:min-h-[40px] overflow-hidden line-clamp-2">
         {name}
       </h3>
-      <div className="text-sm mb-2.5">{renderStars(rating)}</div>
-      <p className="text-2xl md:text-xl font-bold text-primary mb-4">
+      <div className="flex items-center gap-1 mb-2.5">{renderStars(rating)}</div>
+      <p className="text-2xl md:text-xl font-bold text-gray-800 mb-4">
         {formatPrice(price)}
         <span className="text-sm font-normal text-gray-600">/{unit}</span>
       </p>

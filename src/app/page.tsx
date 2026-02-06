@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import HeroSlider from '@/components/HeroSlider';
 import Departments from '@/components/Departments';
 import ProductCard from '@/components/ProductCard';
@@ -10,23 +11,15 @@ export default function Home() {
       <Departments />
 
       {/* Promotional Banner */}
-      <section className="bg-gradient-to-br from-[#003366] to-[#005599] py-16 my-10">
-        <div className="max-w-[1400px] mx-auto px-5">
-          <div className="flex flex-col md:flex-row items-center justify-between text-white text-center md:text-left gap-5">
-            <div>
-              <h2 className="text-4xl md:text-3xl sm:text-2xl m-0 leading-tight">TUDO PARA SUA OBRA</h2>
-              <p className="text-xl md:text-base sm:text-sm mt-1">MAIS DE 16 MIL PRODUTOS DE QUALIDADE</p>
-            </div>
-            <div className="flex flex-col md:flex-row gap-10 md:gap-8 sm:gap-4 text-lg md:text-base sm:text-sm">
-              <div className="flex items-center gap-2.5">
-                <span className="text-primary text-base">▶</span> Menor preço
-              </div>
-              <div className="flex items-center gap-2.5">
-                <span className="text-primary text-base">▶</span> Entrega rápida
-              </div>
-            </div>
-          </div>
-        </div>
+      <section className="relative w-full my-10">
+        <Image
+          src="/mid-banner.webp"
+          alt="Banner Promocional"
+          width={1920}
+          height={300}
+          className="w-full h-auto object-cover"
+          priority
+        />
       </section>
 
       {/* Featured Products */}
