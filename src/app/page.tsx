@@ -37,6 +37,8 @@ export default function Home() {
                 rating={product.rating}
                 unit={product.unit}
                 link={`/product/${product.id}`}
+                isOnDiscount={product.isOnDiscount}
+                originalPrice={product.originalPrice}
               />
             ))}
           </div>

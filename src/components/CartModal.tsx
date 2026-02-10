@@ -1,8 +1,7 @@
 'use client';
 
-import Image from 'next/image';
 import { useCart } from '@/contexts/CartContext';
-import { X, Minus, Plus, MessageCircle } from 'lucide-react';
+import { X, Minus, Plus, Trash2 } from 'lucide-react';
 import { sendCartToWhatsApp } from '@/utils/whatsapp';
 
 export default function CartModal() {
@@ -77,10 +76,10 @@ export default function CartModal() {
                 <div className="text-right flex flex-col justify-between">
                   <p className="m-0 text-base font-bold text-gray-800">{formatPrice(item.price * item.quantity)}</p>
                   <button
-                    className="bg-transparent border-none cursor-pointer text-lg p-1 opacity-60 hover:opacity-100 transition-opacity"
+                    className="bg-transparent border-none cursor-pointer text-lg p-1 opacity-60 hover:opacity-100 transition-opacity text-red-500"
                     onClick={() => removeItem(item.id)}
                   >
-                    <Image src="/lixo.svg" alt="Remover" width={20} height={20} />
+                    <Trash2 className="w-5 h-5" />
                   </button>
                 </div>
               </div>
@@ -96,16 +95,9 @@ export default function CartModal() {
             </div>
             <button
               onClick={handleCheckout}
-              className="w-full py-4 bg-green-600 text-white border-none rounded font-bold text-base cursor-pointer mb-2 hover:bg-green-700 transition-colors flex items-center justify-center gap-2"
+              className="w-full py-4 bg-orange-500 text-white border-none rounded font-bold text-base cursor-pointer hover:bg-orange-600 transition-colors flex items-center justify-center gap-2"
             >
-              <MessageCircle className="w-5 h-5" />
-              Finalizar Compra via WhatsApp
-            </button>
-            <button
-              className="w-full py-3 bg-white text-primary border-2 border-primary rounded font-bold text-sm cursor-pointer hover:bg-primary hover:text-white transition-all"
-              onClick={toggleCart}
-            >
-              Continuar Comprando
+              Finalizar Compra
             </button>
           </div>
         )}

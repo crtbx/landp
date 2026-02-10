@@ -30,6 +30,7 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(3);
   const [cep, setCep] = useState('');
+  const [cepChecked, setCepChecked] = useState(false);
   const { addItem, toggleCart } = useCart();
 
   const handleAddToCart = () => {
@@ -46,6 +47,12 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
 
   const increaseQty = () => setQuantity((prev) => prev + 1);
   const decreaseQty = () => setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
+
+  const handleCheckCep = () => {
+    if (cep.length >= 8) {
+      setCepChecked(true);
+    }
+  };
 
   const totalPrice = productData.price * quantity;
 
@@ -218,9 +225,21 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
                     alterar localização
                   </a>
                 </p>
-                <div className="inline-block bg-primary text-white px-3 py-1 rounded text-xs font-bold mb-2.5">
-                  À Varejo
+                <div className="flex gap-2.5 items-center mb-2.5">
+                  <div className="inline-block bg-primary text-white px-3 py-1 rounded text-xs font-bold">
+                    À Varejo
+                  </div>
+                  {productData.isOnDiscount && (
+                    <div className="inline-block bg-blue-600 text-white px-3 py-1 rounded text-xs font-bold">
+                      Max por Menos
+                    </div>
+                  )}
                 </div>
+                {productData.originalPrice && (
+                  <p className="text-sm text-gray-500 mb-2.5 line-through">
+                    {formatPrice(productData.originalPrice)}
+                  </p>
+                )}
                 <p className="text-3xl md:text-2xl font-bold text-gray-900 my-2.5">
                   {formatPrice(productData.price)}
                   <span className="text-sm text-gray-600 font-normal">/{productData.unit || 'un'}</span>
@@ -286,7 +305,7 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
 
               <button
                 onClick={handleAddToCart}
-                className="w-full py-5 bg-primary text-white border-none rounded text-lg font-bold cursor-pointer mb-5 hover:bg-primary-dark transition-colors flex items-center justify-center gap-2"
+                className="w-full py-5 bg-primary text-white border-none text-lg font-bold cursor-pointer mb-5 hover:bg-primary-dark transition-colors flex items-center justify-center gap-2"
               >
                 <ShoppingCart className="w-5 h-5" /> Adicionar ao carrinho
               </button>
@@ -302,17 +321,30 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
                     maxLength={9}
                     className="flex-1 p-3 border border-gray-200 rounded text-sm outline-none focus:border-primary"
                   />
-                  <button className="px-5 py-3 bg-primary text-white border-none rounded cursor-pointer text-sm font-bold hover:bg-primary-dark transition-colors">
+                  <button
+                    onClick={handleCheckCep}
+                    className="px-5 py-3 bg-primary text-white border-none rounded cursor-pointer text-sm font-bold hover:bg-primary-dark transition-colors"
+                  >
                     Consultar
                   </button>
                 </div>
                 <a href="#" className="text-xs text-primary underline block mb-4 flex items-center gap-1">
                   Não sei meu CEP <LinkIcon className="w-3 h-3" />
                 </a>
-                <div className="bg-[#fff3cd] border border-[#ffc107] p-3 rounded text-[13px] text-[#856404] mb-2.5 flex items-start gap-2">
-                  <AlertTriangle className="w-4 h-4 flex-shrink-0 mt-0.5" />
-                  <span>Informe um CEP disponível acima para verificar opções de frete.</span>
-                </div>
+                {cepChecked ? (
+                  <div className="bg-green-50 border border-green-500 p-3 rounded text-[13px] text-green-700 mb-2.5 flex items-start gap-2">
+                    <Truck className="w-4 h-4 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <strong className="block mb-1">Frete Grátis</strong>
+                      <span>Entrega grátis para o CEP {cep}</span>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="bg-[#fff3cd] border border-[#ffc107] p-3 rounded text-[13px] text-[#856404] mb-2.5 flex items-start gap-2">
+                    <AlertTriangle className="w-4 h-4 flex-shrink-0 mt-0.5" />
+                    <span>Informe um CEP disponível acima para verificar opções de frete.</span>
+                  </div>
+                )}
                 <a href="#" className="text-[13px] text-primary underline">
                   Ver mais informações
                 </a>

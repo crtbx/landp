@@ -17,6 +17,8 @@ const categoryNames: { [key: string]: string } = {
   'portas-e-janelas': 'Portas e Janelas',
   'seguranca': 'Segurança',
   'telhas-e-calhas': 'Telhas e Calhas',
+  'estrutura-e-reforco': 'Estrutura e Reforço',
+  'cimentos-e-aglomerantes': 'Cimentos e Aglomerantes',
 };
 
 export default function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -62,6 +64,8 @@ export default function CategoryPage({ params }: { params: Promise<{ slug: strin
                   rating={product.rating}
                   unit={product.unit}
                   link={`/product/${product.id}`}
+                  isOnDiscount={product.isOnDiscount}
+                  originalPrice={product.originalPrice}
                 />
               ))}
             </div>

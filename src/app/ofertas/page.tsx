@@ -88,7 +88,7 @@ export default function OfertasPage() {
           <div className="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] md:grid-cols-[repeat(auto-fill,minmax(240px,1fr))] sm:grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-6 md:gap-5 sm:gap-4">
             {offersProducts.map((product) => (
               <div key={product.id} className="relative">
-                <div className="absolute top-2 left-2 z-10 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg">
+                <div className="absolute top-2 left-2 z-10 bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg">
                   -{product.discount}%
                 </div>
                 <ProductCard
@@ -99,6 +99,8 @@ export default function OfertasPage() {
                   rating={product.rating}
                   unit={product.unit}
                   link={`/product/${product.id}`}
+                  isOnDiscount={product.isOnDiscount}
+                  originalPrice={product.originalPrice}
                 />
               </div>
             ))}

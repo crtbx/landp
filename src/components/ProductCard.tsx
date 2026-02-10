@@ -4,7 +4,7 @@ import { MouseEvent } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useCart } from '@/contexts/CartContext';
-import { Star } from 'lucide-react';
+import { Star, ShoppingCart } from 'lucide-react';
 
 interface ProductCardProps {
   id: string;
@@ -14,6 +14,8 @@ interface ProductCardProps {
   rating?: number;
   unit?: string;
   link?: string;
+  isOnDiscount?: boolean;
+  originalPrice?: number;
 }
 
 export default function ProductCard({
@@ -24,6 +26,8 @@ export default function ProductCard({
   rating = 5,
   unit = 'un',
   link = '#',
+  isOnDiscount = false,
+  originalPrice,
 }: ProductCardProps) {
   const { addItem, toggleCart } = useCart();
 
@@ -56,8 +60,13 @@ export default function ProductCard({
   return (
     <Link
       href={link}
-      className="bg-white rounded-lg p-5 no-underline flex flex-col shadow-md hover:-translate-y-1 hover:shadow-xl transition-all cursor-pointer"
+      className="bg-white rounded-lg p-5 no-underline flex flex-col shadow-md hover:-translate-y-1 hover:shadow-xl transition-all cursor-pointer relative"
     >
+      {isOnDiscount && (
+        <div className="absolute top-3 right-3 bg-blue-600 text-white px-2.5 py-1 rounded text-xs font-bold z-10">
+          Max por Menos
+        </div>
+      )}
       <div className="w-full aspect-square flex items-center justify-center mb-4 bg-gray-50 rounded-lg overflow-hidden relative">
         <Image
           src={image}
@@ -71,14 +80,20 @@ export default function ProductCard({
         {name}
       </h3>
       <div className="flex items-center gap-1 mb-2.5">{renderStars(rating)}</div>
+      {originalPrice && (
+        <p className="text-sm text-gray-500 mb-1 line-through">
+          {formatPrice(originalPrice)}
+        </p>
+      )}
       <p className="text-2xl md:text-xl font-bold text-gray-800 mb-4">
         {formatPrice(price)}
         <span className="text-sm font-normal text-gray-600">/{unit}</span>
       </p>
       <button
-        className="w-full py-3 md:py-2.5 bg-primary text-white border-none rounded text-sm font-bold cursor-pointer hover:bg-primary-dark transition-colors mt-auto"
+        className="w-full py-3 md:py-2.5 bg-primary text-white border-none text-sm font-bold cursor-pointer hover:bg-primary-dark transition-colors mt-auto flex items-center justify-center gap-2"
         onClick={handleAddToCart}
       >
+        <ShoppingCart className="w-4 h-4" />
         Adicionar ao carrinho
       </button>
     </Link>
