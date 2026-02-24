@@ -1,6 +1,3 @@
-'use client';
-
-import { use } from 'react';
 import Link from 'next/link';
 import ProductCard from '@/components/ProductCard';
 import { getProductsByCategory } from '@/data/products';
@@ -21,8 +18,12 @@ const categoryNames: { [key: string]: string } = {
   'cimentos-e-aglomerantes': 'Cimentos e Aglomerantes',
 };
 
-export default function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = use(params);
+export function generateStaticParams() {
+  return Object.keys(categoryNames).map((slug) => ({ slug }));
+}
+
+export default async function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
   const products = getProductsByCategory(slug);
   const categoryName = categoryNames[slug] || 'Categoria';
 
