@@ -25,8 +25,8 @@ export default function Home() {
       {/* Featured Products */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-[1400px] mx-auto px-5">
-          <h2 className="text-3xl md:text-2xl text-gray-800 mb-10 text-center">Telha seguro e resistente</h2>
-          <div className="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] md:grid-cols-[repeat(auto-fill,minmax(240px,1fr))] sm:grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-6 md:gap-5 sm:gap-4">
+          <h2 className="text-xl sm:text-2xl md:text-3xl text-gray-800 mb-10 text-center">Telha seguro e resistente</h2>
+          <div className="grid grid-cols-[repeat(auto-fill,minmax(160px,1fr))] sm:grid-cols-[repeat(auto-fill,minmax(200px,1fr))] md:grid-cols-[repeat(auto-fill,minmax(240px,1fr))] lg:grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-4 sm:gap-5 md:gap-6">
             {products.map((product) => (
               <ProductCard
                 key={product.id}

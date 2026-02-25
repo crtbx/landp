@@ -25,9 +25,9 @@ export default function HeroSlider() {
 
   return (
     <section className="relative w-full max-w-[1400px] mx-auto overflow-hidden">
-      <div className="relative w-full h-[248px] lg:h-[230px] md:h-[200px] sm:h-[180px]">
+      <div className="relative w-full h-[200px] sm:h-[220px] md:h-[248px] lg:h-[280px]">
         <button
-          className="absolute top-1/2 -translate-y-1/2 left-3 md:left-2 bg-black bg-opacity-50 text-white border-none w-8 h-8 md:w-7 md:h-7 rounded-full cursor-pointer z-10 hover:bg-opacity-80 transition-all flex items-center justify-center"
+          className="absolute top-1/2 -translate-y-1/2 left-3 bg-black bg-opacity-50 text-white border-none w-10 h-10 sm:w-8 sm:h-8 rounded-full cursor-pointer z-10 hover:bg-opacity-80 transition-all flex items-center justify-center"
           onClick={prevSlide}
         >
           <ChevronLeft className="w-5 h-5" />
@@ -53,7 +53,7 @@ export default function HeroSlider() {
         ))}
 
         <button
-          className="absolute top-1/2 -translate-y-1/2 right-3 md:right-2 bg-black bg-opacity-50 text-white border-none w-8 h-8 md:w-7 md:h-7 rounded-full cursor-pointer z-10 hover:bg-opacity-80 transition-all flex items-center justify-center"
+          className="absolute top-1/2 -translate-y-1/2 right-3 bg-black bg-opacity-50 text-white border-none w-10 h-10 sm:w-8 sm:h-8 rounded-full cursor-pointer z-10 hover:bg-opacity-80 transition-all flex items-center justify-center"
           onClick={nextSlide}
         >
           <ChevronRight className="w-5 h-5" />

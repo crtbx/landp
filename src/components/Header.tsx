@@ -1,19 +1,22 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useCart } from '@/contexts/CartContext';
-import { Menu } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 
 export default function Header() {
   const { totalItems, toggleCart } = useCart();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 bg-white shadow-md">
-      <div className="bg-white border-b border-gray-200 py-4">
-        <div className="max-w-[1400px] mx-auto px-5 flex items-center gap-8">
-          <Link href="/" className="cursor-pointer no-underline flex items-center">
-            <div className="relative w-[180px] h-[50px]">
+      <div className="bg-white border-b border-gray-200 py-3">
+        <div className="max-w-[1400px] mx-auto px-4 flex items-center gap-3 md:gap-8">
+
+          <Link href="/" className="cursor-pointer no-underline flex items-center flex-shrink-0">
+            <div className="relative w-[120px] h-[36px] sm:w-[150px] sm:h-[42px] md:w-[180px] md:h-[50px]">
               <Image
                 src="/images/logo/logo.svg"
                 alt="Obramax Logo"
@@ -27,17 +30,17 @@ export default function Header() {
           <div className="flex-1 flex gap-0">
             <input
               type="text"
-              placeholder="Digite sua busca aqui"
-              className="flex-1 px-2 py-3 border-2 border-primary border-r-0 rounded-l focus:outline-none text-sm"
+              placeholder="Buscar produtos..."
+              className="flex-1 px-2 py-2.5 md:py-3 border-2 border-primary border-r-0 rounded-l focus:outline-none text-sm"
             />
-            <button className="px-4 py-3 bg-primary text-white border-none rounded-r cursor-pointer hover:bg-primary-dark transition-colors flex items-center justify-center">
+            <button className="px-3 md:px-4 py-2.5 md:py-3 bg-primary text-white border-none rounded-r cursor-pointer hover:bg-primary-dark transition-colors flex items-center justify-center">
               <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 26 26">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
             </button>
           </div>
 
-          <div className="flex gap-5 items-center">
+          <div className="hidden md:flex gap-5 items-center">
             <div className="flex items-center gap-2">
               <svg className="w-6 h-6 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
@@ -57,27 +60,28 @@ export default function Header() {
                 <p className="m-0 text-xs text-gray-800 leading-tight">Praia Grande</p>
               </div>
             </div>
-
-            <button
-              onClick={toggleCart}
-              className="relative bg-primary border-none px-3 py-3 rounded-full cursor-pointer hover:bg-primary-dark transition-colors"
-            >
-              <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
-              </svg>
-              {totalItems > 0 && (
-                <span className="absolute -top-2 -right-2 bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold">
-                  {totalItems}
-                </span>
-              )}
-            </button>
           </div>
+
+          <button
+            onClick={toggleCart}
+            className="relative bg-primary border-none px-3 py-3 rounded-full cursor-pointer hover:bg-primary-dark transition-colors flex-shrink-0"
+          >
+            <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
+            </svg>
+            {totalItems > 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold">
+                {totalItems}
+              </span>
+            )}
+          </button>
         </div>
       </div>
 
-      <nav className="bg-gray-600 text-white mx-auto px-4 py-0"> 
-        <div className="max-w-[1400px] mx-auto px- flex justify-between items-center">
-          <ul className="flex list-none m-0 p-0 gap-8">
+      <nav className="bg-gray-600 text-white px-4 py-0">
+        <div className="max-w-[1400px] mx-auto flex justify-between items-center">
+
+          <ul className="hidden md:flex list-none m-0 p-0 gap-8">
             <li>
               <Link href="/departamentos" className="text-white no-underline py-4 block text-sm hover:text-primary transition-colors flex items-center gap-2">
                 <Menu className="w-4 h-4" /> Todos os departamentos
@@ -89,10 +93,35 @@ export default function Header() {
             <li><Link href="/tabloide" className="text-white no-underline py-4 block text-sm hover:text-primary transition-colors">Tabloide</Link></li>
             <li><Link href="/lojas" className="text-white no-underline py-4 block text-sm hover:text-primary transition-colors">Nossas Lojas</Link></li>
           </ul>
-          <div className="tesxt-white text-sm">
-             Orçamento <a href="#" className="text-gray-300 underline ml-1">Clique aqui</a>
+
+          <button
+            className="md:hidden text-white py-3 flex items-center gap-2 text-sm"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            Menu
+          </button>
+
+          <div className="hidden md:block text-white text-sm py-4">
+            Orçamento <a href="#" className="text-gray-300 underline ml-1">Clique aqui</a>
           </div>
         </div>
+
+        {mobileMenuOpen && (
+          <div className="md:hidden border-t border-gray-500">
+            <ul className="list-none m-0 p-0">
+              <li><Link href="/departamentos" onClick={() => setMobileMenuOpen(false)} className="text-white no-underline py-3 px-4 block text-sm hover:bg-gray-700 flex items-center gap-2"><Menu className="w-4 h-4" /> Todos os departamentos</Link></li>
+              <li><Link href="/academia" onClick={() => setMobileMenuOpen(false)} className="text-white no-underline py-3 px-4 block text-sm hover:bg-gray-700">Academia de Profissionais</Link></li>
+              <li><Link href="/blog" onClick={() => setMobileMenuOpen(false)} className="text-white no-underline py-3 px-4 block text-sm hover:bg-gray-700">Blog</Link></li>
+              <li><Link href="/ofertas" onClick={() => setMobileMenuOpen(false)} className="text-white no-underline py-3 px-4 block text-sm hover:bg-gray-700">Max por Menos</Link></li>
+              <li><Link href="/tabloide" onClick={() => setMobileMenuOpen(false)} className="text-white no-underline py-3 px-4 block text-sm hover:bg-gray-700">Tabloide</Link></li>
+              <li><Link href="/lojas" onClick={() => setMobileMenuOpen(false)} className="text-white no-underline py-3 px-4 block text-sm hover:bg-gray-700">Nossas Lojas</Link></li>
+              <li className="py-3 px-4 text-sm border-t border-gray-500">
+                Orçamento <a href="#" className="text-gray-300 underline ml-1">Clique aqui</a>
+              </li>
+            </ul>
+          </div>
+        )}
       </nav>
     </header>
   );

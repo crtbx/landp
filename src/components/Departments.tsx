@@ -37,7 +37,7 @@ export default function Departments() {
         <h2 className="text-2xl text-gray-700 mb-8 text-left pb-3 border-b border-gray-300 inline-block flex items-center gap-2">
           Compre por departamento <ShoppingCart className="w-6 h-6" />
         </h2>
-        <div className="relative px-16 md:px-12">
+        <div className="relative px-10 sm:px-12 md:px-16">
           <button
             className="absolute top-1/2 -translate-y-1/2 left-0 bg-primary text-white border-none w-12 h-12 md:w-10 md:h-10 rounded-full cursor-pointer z-10 shadow-lg hover:bg-primary-dark transition-colors flex items-center justify-center"
             onClick={() => scroll(-1)}
