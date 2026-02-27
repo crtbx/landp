@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { CartProvider } from '@/contexts/CartContext';
 import Header from '@/components/Header';
 import CartModal from '@/components/CartModal';
+import WhatsAppButton from '@/components/WhatsAppButton';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -21,6 +22,7 @@ export default function RootLayout({
           <Header />
           <CartModal />
           <main className="min-h-[calc(100vh-200px)]">{children}</main>
+          <WhatsAppButton />
           <footer className="bg-gray-800 text-white pt-16 pb-8 mt-20">
             <div className="max-w-[1400px] mx-auto px-5">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-10">
